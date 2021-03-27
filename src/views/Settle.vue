@@ -21,7 +21,7 @@
     </div>
     <div class="cart-footer">
       <div class="cart-footer-submit-product">
-        <button> 确认支付 </button>
+        <button @click="handleSubmitPay()"> 确认支付 </button>
       </div>
     </div>
   </div>
@@ -52,7 +52,9 @@ export default {
     }
   },
   methods: {
-
+    handleSubmitPay () {
+      alert('付款跳转')
+    }
   }
 }
 </script>
