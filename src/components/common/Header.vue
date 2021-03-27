@@ -32,6 +32,7 @@
 
 <script>
 import { DownOutlined } from '@ant-design/icons-vue'
+import { accAdd, accMul } from '../../utils/calculate'
 
 export default {
   data () {
@@ -48,11 +49,14 @@ export default {
     },
     tmpTotalPrice () {
       let tmpPrice = 0.00
-      this.$store.getters.getSelectProducts.forEach(element => {
-        if (element.selected_count && element.price) {
-          tmpPrice += element.selected_count * element.price
-        }
-      })
+      if (this.$store.getters.getSelectProducts.length > 0) {
+        this.$store.getters.getSelectProducts.forEach(element => {
+          if (element.selected_count && element.price) {
+            tmpPrice = accAdd(tmpPrice, accMul(element.selected_count, element.price))
+          }
+        })
+      }
+
       return tmpPrice
     }
   },

@@ -24,11 +24,14 @@
 
 <script>
 import Header from '../components/common/Header'
+import { accAdd, accMul } from '../utils/calculate'
+// import { getCartProductList } from '../api/cart_api'
 
 export default {
   data () {
     return {
-      selectedProducts: []
+      selectedProducts: [],
+      successCode: Number(process.env.VUE_APP_SUCCESS_CODE)
     }
   },
   components: {
@@ -40,20 +43,33 @@ export default {
   computed: {
     tmpTotalPrice () {
       let tmpPrice = 0.00
-      this.$store.getters.getSelectProducts.forEach(element => {
-        if (element.selected_count && element.price) {
-          tmpPrice += element.selected_count * element.price
-        }
-      })
+      if (Array.isArray(this.selectedProducts)) {
+        this.selectedProducts.forEach(element => {
+          if (element.selected_count && element.price) {
+            tmpPrice = accAdd(tmpPrice, accMul(element.selected_count, element.price))
+          }
+        })
+      }
       return tmpPrice
     }
   },
   methods: {
-    initCartProduct () {
-      this.selectedProducts = [
-        { pro_id: 1, pro_name: '苹果', remaining_product: 10, price: 2.88, selected_count: 2 },
-        { pro_id: 2, pro_name: '樱桃', remaining_product: 10, price: 2.88, selected_count: 2 }
-      ]
+    async initCartProduct () {
+      // const userId = this.$store.getters.getUserId
+      // const res = await getCartProductList({ userId: userId })
+      const res = {
+        code: 200,
+        msg: 'success',
+        data: [
+          { pro_id: 1, pro_name: '苹果', remaining_product: 10, price: 2.88, selected_count: 2 },
+          { pro_id: 2, pro_name: '樱桃', remaining_product: 10, price: 2.88, selected_count: 2 }
+        ]
+      }
+      if (res.code === this.successCode) {
+        this.selectedProducts = res.data
+      } else {
+        this.selectedProducts = []
+      }
       this.$store.commit('setSelectedProducts', { selectedProducts: this.selectedProducts })
     },
     handleSubProduct (item) {
@@ -70,6 +86,7 @@ export default {
         alert('库存不足')
         return
       }
+      console.log(this.$store.getters.getSelectProducts)
       item.remaining_product = item.remaining_product - 1
       item.selected_count = item.selected_count + 1
       this.$store.commit('setSelectedProducts', { selectedProducts: this.selectedProducts })
