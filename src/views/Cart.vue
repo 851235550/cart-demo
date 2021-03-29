@@ -16,7 +16,7 @@
     <div class="cart-footer">
       <div class="cart-footer-submit-product">
         <span>总计: {{tmpTotalPrice}} </span>
-        <button> <router-link to="/settle">立即结算</router-link> </button>
+        <button @click="clickSubmitSettle"> 立即结算 </button>
       </div>
     </div>
   </div>
@@ -64,6 +64,7 @@ export default {
         msg: 'success',
         data: [
           { pro_id: 1, pro_name: '苹果', remaining_product: 200, price: 2.88, selected_count: 2 },
+          { pro_id: 3, pro_name: '橘子', remaining_product: 100, price: 5.63, selected_count: 0 },
           { pro_id: 2, pro_name: '樱桃', remaining_product: 100, price: 5.63, selected_count: 2 }
         ]
       }
@@ -75,7 +76,7 @@ export default {
       this.$store.dispatch('setSelectedProducts', { selectedProducts: this.selectedProducts })
     },
     handleSubProduct (item) {
-      if (item.selected_count <= 1) {
+      if (item.selected_count <= 0) {
         alert('不能更少了')
         return
       }
@@ -91,6 +92,13 @@ export default {
       item.remaining_product = item.remaining_product - 1
       item.selected_count = item.selected_count + 1
       this.$store.dispatch('setSelectedProducts', { selectedProducts: this.selectedProducts })
+    },
+    clickSubmitSettle () {
+      if (this.tmpTotalPrice <= 0) {
+        alert('没有选择商品，不能结算')
+      } else {
+        this.$router.push('/settle')
+      }
     }
   }
 }

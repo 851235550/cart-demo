@@ -23,7 +23,7 @@
           </li>
         </ul>
         <div>
-          <button><router-link to="/settle">立即结算</router-link></button>
+          <button @click="clickSubmitSettle"> 立即结算 </button>
         </div>
       </div>
     </div>
@@ -45,7 +45,8 @@ export default {
   },
   computed: {
     selectedProducts () {
-      return this.$store.getters.getSelectProducts
+      const tmpProList = this.$store.getters.getSelectProducts
+      return tmpProList.filter(item => item.selected_count > 0)
     },
     tmpTotalPrice () {
       let tmpPrice = 0.00
@@ -66,6 +67,13 @@ export default {
     },
     mouseleave () {
       this.hover = false
+    },
+    clickSubmitSettle () {
+      if (this.tmpTotalPrice <= 0) {
+        alert('没有选择商品，不能结算')
+      } else {
+        this.$router.push('/settle')
+      }
     }
   }
 }

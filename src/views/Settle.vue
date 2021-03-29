@@ -53,7 +53,8 @@ export default {
       return tmpPrice
     },
     selectedProducts () {
-      return this.$store.getters.getSelectProducts
+      const tmpProList = this.$store.getters.getSelectProducts
+      return tmpProList.filter(item => item.selected_count > 0)
     }
   },
   methods: {
