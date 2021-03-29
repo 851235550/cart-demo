@@ -63,9 +63,9 @@ export default {
         code: 200,
         msg: 'success',
         data: [
-          { pro_id: 1, pro_name: '苹果', remaining_product: 200, price: 2.88, selected_count: 2 },
-          { pro_id: 3, pro_name: '橘子', remaining_product: 100, price: 5.63, selected_count: 0 },
-          { pro_id: 2, pro_name: '樱桃', remaining_product: 100, price: 5.63, selected_count: 2 }
+          { pro_id: 1, pro_name: '苹果', remaining_product: 20, price: 2.88, selected_count: 2 },
+          { pro_id: 3, pro_name: '橘子', remaining_product: 10, price: 5.63, selected_count: 0 },
+          { pro_id: 2, pro_name: '樱桃', remaining_product: 10, price: 5.63, selected_count: 2 }
         ]
       }
       if (res.code === this.successCode) {
