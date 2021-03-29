@@ -17,6 +17,10 @@
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0"
   },
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": ["src/**/*.{js,vue}"]
+  },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",

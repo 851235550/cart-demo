@@ -64,7 +64,7 @@ export default {
         msg: 'success',
         data: [
           { pro_id: 1, pro_name: '苹果', remaining_product: 200, price: 2.88, selected_count: 2 },
-          { pro_id: 2, pro_name: '樱桃', remaining_product: 100, price: 5.65, selected_count: 2 }
+          { pro_id: 2, pro_name: '樱桃', remaining_product: 100, price: 5.63, selected_count: 2 }
         ]
       }
       if (res.code === this.successCode) {
@@ -72,7 +72,7 @@ export default {
       } else {
         this.selectedProducts = []
       }
-      this.$store.commit('setSelectedProducts', { selectedProducts: this.selectedProducts })
+      this.$store.dispatch('setSelectedProducts', { selectedProducts: this.selectedProducts })
     },
     handleSubProduct (item) {
       if (item.selected_count <= 1) {
@@ -81,17 +81,16 @@ export default {
       }
       item.remaining_product = item.remaining_product + 1
       item.selected_count = item.selected_count - 1
-      this.$store.commit('setSelectedProducts', { selectedProducts: this.selectedProducts })
+      this.$store.dispatch('setSelectedProducts', { selectedProducts: this.selectedProducts })
     },
     handleAddProduct (item) {
       if (item.remaining_product < 1) {
         alert('库存不足')
         return
       }
-      console.log(this.$store.getters.getSelectProducts)
       item.remaining_product = item.remaining_product - 1
       item.selected_count = item.selected_count + 1
-      this.$store.commit('setSelectedProducts', { selectedProducts: this.selectedProducts })
+      this.$store.dispatch('setSelectedProducts', { selectedProducts: this.selectedProducts })
     }
   }
 }

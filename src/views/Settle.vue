@@ -29,6 +29,7 @@
 
 <script>
 import Header from '../components/common/Header'
+import { accAdd, accMul } from '../utils/calculate'
 
 export default {
   data () {
@@ -40,11 +41,15 @@ export default {
   computed: {
     tmpTotalPrice () {
       let tmpPrice = 0.00
-      this.$store.getters.getSelectProducts.forEach(element => {
-        if (element.selected_count && element.price) {
-          tmpPrice += element.selected_count * element.price
-        }
-      })
+      if (Array.isArray(this.selectedProducts)) {
+        this.selectedProducts.forEach(element => {
+          if (Math.round(element.selected_count) === element.selected_count &&
+          element.selected_count > 0 &&
+          element.price > 0) {
+            tmpPrice = accAdd(tmpPrice, accMul(element.selected_count, element.price))
+          }
+        })
+      }
       return tmpPrice
     },
     selectedProducts () {

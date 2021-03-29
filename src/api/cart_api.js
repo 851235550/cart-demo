@@ -13,3 +13,13 @@ export function getCartProductList (params) {
 
   return req
 }
+
+export function saveCartProductList (params) {
+  const req = request({
+    method: 'post',
+    url: '/cart/saveproduct',
+    data: params
+  })
+
+  return req
+}
