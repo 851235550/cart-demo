@@ -45,7 +45,9 @@ export default {
       let tmpPrice = 0.00
       if (Array.isArray(this.selectedProducts)) {
         this.selectedProducts.forEach(element => {
-          if (element.selected_count && element.price) {
+          if (Math.round(element.selected_count) === element.selected_count &&
+          element.selected_count > 0 &&
+          element.price > 0) {
             tmpPrice = accAdd(tmpPrice, accMul(element.selected_count, element.price))
           }
         })
@@ -61,8 +63,8 @@ export default {
         code: 200,
         msg: 'success',
         data: [
-          { pro_id: 1, pro_name: '苹果', remaining_product: 10, price: 2.88, selected_count: 2 },
-          { pro_id: 2, pro_name: '樱桃', remaining_product: 10, price: 2.88, selected_count: 2 }
+          { pro_id: 1, pro_name: '苹果', remaining_product: 200, price: 2.88, selected_count: 2 },
+          { pro_id: 2, pro_name: '樱桃', remaining_product: 100, price: 5.65, selected_count: 2 }
         ]
       }
       if (res.code === this.successCode) {

@@ -17,7 +17,7 @@ export function accAdd (arg1, arg2) {
 
   var r1, r2, m, n
   try {
-    if (isNumber(arg1)) {
+    if (Math.round(arg1) === arg1) {
       r1 = 0
     } else {
       r1 = arg1.toString().split('.')[1].length
@@ -26,7 +26,7 @@ export function accAdd (arg1, arg2) {
     alert('arg1参数不正确' + e.name)
   }
   try {
-    if (isNumber(arg2)) {
+    if (Math.round(arg2) === arg2) {
       r2 = 0
     } else {
       r2 = arg2.toString().split('.')[1].length
